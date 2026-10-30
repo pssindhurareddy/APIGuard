@@ -390,34 +390,8 @@ Details: [`docs/limitations.md`](docs/limitations.md) · threat model: [`docs/th
 
 ---
 
-## 13. Changelog (submission build)
 
-- **Fixed false "suspected" results:** AUTH-001/002 now substitute real synthetic IDs into templated paths (`/api/orders/{order_id}` → `order-1001`) and send a schema-valid body to write endpoints. Before, they probed the literal template and got 404/422 noise.
-- **Hardened the secure demo API:** authentication now runs before object lookup (removing a 404-vs-401 existence oracle), and the order schema uses `extra="forbid"` to block mass assignment (INPUT-005).
-- **Added 6 regression tests** (34 → 40). The secure scan went from 37/44 PASS (73.1% remediation) to **44/44 PASS (100%)**.
-- Added `frontend/src/vite-env.d.ts` so `npm run build` type-checks, plus macOS/Linux scripts and cross-platform setup docs.
-- **The backend now serves the pre-built dashboard on port 8000.** Running the tool needs only Python, with no Node.js or separate dev server. This removes the Windows `localhost:5173` 404 issue.
-- **Third-party benchmark:** bundled VAmPI with a loopback launcher, plus new generic scanner features: login-based auth profiles (real JWTs), resource-ID discovery, generic `{placeholder}` path templating, `{unique}` probe values and **verified** mass-assignment detection.
-- **Fixed AUTH-004 false negatives:** the same template-path bug hid 3 real policy-drift findings on the vulnerable demo (33 → 36 confirmed). Also fixed AUTH-003 (it assumed the user is literally named "alice") and isolated the tests from the app database.
-- **OWASP API Top 10 (2023) + CWE mapping** for all 17 checks, in the API, dashboard, Test Library and reports.
-- **Detection accuracy evaluation** with source-code ground truth: 100% precision/recall over 125 verdicts; 3/4 in-scope VAmPI vulnerabilities.
-- **GitHub Actions CI** (Windows + Linux, Python 3.12/3.13, dashboard build, end-to-end evaluation).
-- **Fixed a redaction leak** found while collecting test evidence: password hashes and API keys survived inside the stored `response_preview` text. Now 0 secrets across 157 stored findings. Tests: 34 → 54.
-
----
-
-## 14. Team & Contributions
-
-| Name | Role | Contributions |
-| :--- | :--- | :--- |
-| _[Name]_ | Application Security | Check module design (Auth, BOLA, Input, Data Exposure), ScopeGuard, evidence redactor |
-| _[Name]_ | Backend | FastAPI engine, request engine, SQLite persistence, OpenAPI parser, report generator |
-| _[Name]_ | Frontend | React/TypeScript dashboard, charts, scan comparison |
-| _[Name]_ | QA & Testing | Pytest suite, synthetic fixtures, automation scripts |
-
----
-
-## 15. References
+## 13. References
 
 - OWASP API Security Top 10 (2023): https://owasp.org/API-Security/editions/2023/en/0x11-t10/
 - MITRE CWE: https://cwe.mitre.org/ (CWE-20, 200, 213, 285, 287, 306, 639, 755, 862, 915, 1284, 1287)
