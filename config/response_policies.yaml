@@ -1,0 +1,26 @@
+default_sensitive_field_names:
+  - password
+  - password_hash
+  - token
+  - access_token
+  - refresh_token
+  - secret
+  - api_key
+  - private_key
+  - internal_notes
+  - credit_card
+  - card_number
+  - ssn
+  - db_connection_string
+
+redaction:
+  replacement: "[REDACTED]"
+  keep_prefix_length: 4
+  max_recursion_depth: 10
+  max_array_elements_scanned: 50
+
+report_defaults:
+  include_raw_headers: false
+  truncate_response_bytes: 4096
+  anonymize_ips: false
+

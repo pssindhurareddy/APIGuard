@@ -1,0 +1,14 @@
+=== TC-05a: register a public internet target via APIGuard API
+HTTP/1.1 400 Bad Request
+{"detail":"Host 'example.com' is not a loopback address. Academic prototype is restricted to loopback testing (127.0.0.1 or localhost) by default."}
+=== TC-05b: ScopeGuard unit tests
+test_scope_guard.py::test_scope_guard_permits_in_scope_loopback PASSED [ 11%]
+test_scope_guard.py::test_scope_guard_rejects_out_of_scope_host PASSED [ 22%]
+test_scope_guard.py::test_scope_guard_rejects_public_internet_host PASSED [ 33%]
+test_scope_guard.py::test_scope_guard_rejects_out_of_scope_port PASSED [ 44%]
+test_scope_guard.py::test_scope_guard_rejects_unapproved_path PASSED [ 55%]
+test_scope_guard.py::test_scope_guard_rejects_unapproved_method PASSED [ 66%]
+test_scope_guard.py::test_scope_guard_rejects_url_credentials PASSED [ 77%]
+test_scope_guard.py::test_scope_guard_rejects_out_of_scope_redirect PASSED [ 88%]
+test_scope_guard.py::test_scope_guard_request_budget_limit PASSED [100%]
+============================== 9 passed in 0.04s ===============================

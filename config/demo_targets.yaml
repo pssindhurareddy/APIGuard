@@ -1,0 +1,354 @@
+targets:
+  - id: target-vulnerable-demo
+    name: "Local Vulnerable Demo API"
+    base_url: "http://127.0.0.1:8001"
+    environment: "demo"
+    allowed_hosts:
+      - "127.0.0.1"
+      - "localhost"
+    allowed_ports:
+      - 8001
+    allowed_paths:
+      - "/api/"
+    allowed_methods:
+      - "GET"
+      - "POST"
+      - "PUT"
+      - "PATCH"
+      - "DELETE"
+    is_authorized: true
+    auth_profiles:
+      alice:
+        username: "alice"
+        role: "user"
+        token: "demo-token-alice-12345"
+      bob:
+        username: "bob"
+        role: "user"
+        token: "demo-token-bob-67890"
+      admin:
+        username: "admin"
+        role: "admin"
+        token: "demo-token-admin-99999"
+    test_resources:
+      alice:
+        user_id: "user-alice-001"
+        order_id: "order-1001"
+      bob:
+        user_id: "user-bob-002"
+        order_id: "order-1002"
+    sensitive_field_patterns:
+      - "password"
+      - "password_hash"
+      - "token"
+      - "access_token"
+      - "refresh_token"
+      - "secret"
+      - "api_key"
+      - "private_key"
+      - "internal_notes"
+    endpoint_policies:
+      - path: "/api/profile"
+        method: "GET"
+        authentication_required: true
+        returns_identity: true
+        identity_field: "username"
+        check_data_exposure: true
+        forbidden_response_fields:
+          - "password_hash"
+          - "internal_notes"
+          - "api_key"
+        allowed_response_fields:
+          - "id"
+          - "username"
+          - "display_name"
+          - "email"
+          - "role"
+          - "created_at"
+
+      - path: "/api/orders/{order_id}"
+        method: "GET"
+        authentication_required: true
+        ownership_required: true
+        resource_key: "order_id"
+        check_data_exposure: true
+        allowed_response_fields:
+          - "id"
+          - "owner"
+          - "product"
+          - "quantity"
+          - "price"
+          - "status"
+          - "created_at"
+
+      - path: "/api/admin/stats"
+        method: "GET"
+        authentication_required: true
+        required_role: "admin"
+        check_data_exposure: true
+        forbidden_response_fields:
+          - "internal_config"
+
+      - path: "/api/orders"
+        method: "POST"
+        authentication_required: true
+        request_schema:
+          required_fields:
+            - "product"
+            - "quantity"
+            - "price"
+          field_types:
+            product: "string"
+            quantity: "integer"
+            price: "float"
+          constraints:
+            quantity:
+              min: 1
+              max: 1000
+              positive: true
+            price:
+              min: 0.01
+              max: 100000.0
+              positive: true
+          example_body:
+            product: "Security Assessment Toolkit"
+            quantity: 2
+            price: 199.99
+          strict: true
+
+      - path: "/api/users/{user_id}/profile"
+        method: "GET"
+        authentication_required: true
+        ownership_required: true
+        resource_key: "user_id"
+        check_data_exposure: true
+        forbidden_response_fields:
+          - "password_hash"
+          - "internal_notes"
+          - "api_key"
+
+  - id: target-secure-demo
+    name: "Local Secured Demo API"
+    base_url: "http://127.0.0.1:8002"
+    environment: "demo"
+    allowed_hosts:
+      - "127.0.0.1"
+      - "localhost"
+    allowed_ports:
+      - 8002
+    allowed_paths:
+      - "/api/"
+    allowed_methods:
+      - "GET"
+      - "POST"
+      - "PUT"
+      - "PATCH"
+      - "DELETE"
+    is_authorized: true
+    auth_profiles:
+      alice:
+        username: "alice"
+        role: "user"
+        token: "demo-token-alice-12345"
+      bob:
+        username: "bob"
+        role: "user"
+        token: "demo-token-bob-67890"
+      admin:
+        username: "admin"
+        role: "admin"
+        token: "demo-token-admin-99999"
+    test_resources:
+      alice:
+        user_id: "user-alice-001"
+        order_id: "order-1001"
+      bob:
+        user_id: "user-bob-002"
+        order_id: "order-1002"
+    sensitive_field_patterns:
+      - "password"
+      - "password_hash"
+      - "token"
+      - "access_token"
+      - "refresh_token"
+      - "secret"
+      - "api_key"
+      - "private_key"
+      - "internal_notes"
+    endpoint_policies:
+      - path: "/api/profile"
+        method: "GET"
+        authentication_required: true
+        returns_identity: true
+        identity_field: "username"
+        check_data_exposure: true
+        forbidden_response_fields:
+          - "password_hash"
+          - "internal_notes"
+          - "api_key"
+        allowed_response_fields:
+          - "id"
+          - "username"
+          - "display_name"
+          - "email"
+          - "role"
+          - "created_at"
+
+      - path: "/api/orders/{order_id}"
+        method: "GET"
+        authentication_required: true
+        ownership_required: true
+        resource_key: "order_id"
+        check_data_exposure: true
+        allowed_response_fields:
+          - "id"
+          - "owner"
+          - "product"
+          - "quantity"
+          - "price"
+          - "status"
+          - "created_at"
+
+      - path: "/api/admin/stats"
+        method: "GET"
+        authentication_required: true
+        required_role: "admin"
+        check_data_exposure: true
+        forbidden_response_fields:
+          - "internal_config"
+
+      - path: "/api/orders"
+        method: "POST"
+        authentication_required: true
+        request_schema:
+          required_fields:
+            - "product"
+            - "quantity"
+            - "price"
+          field_types:
+            product: "string"
+            quantity: "integer"
+            price: "float"
+          constraints:
+            quantity:
+              min: 1
+              max: 1000
+              positive: true
+            price:
+              min: 0.01
+              max: 100000.0
+              positive: true
+          example_body:
+            product: "Security Assessment Toolkit"
+            quantity: 2
+            price: 199.99
+          strict: true
+
+      - path: "/api/users/{user_id}/profile"
+        method: "GET"
+        authentication_required: true
+        ownership_required: true
+        resource_key: "user_id"
+        check_data_exposure: true
+        forbidden_response_fields:
+          - "password_hash"
+          - "internal_notes"
+          - "api_key"
+
+
+  # ---------------------------------------------------------------------------
+  # Third-party benchmark: VAmPI (https://github.com/erev0s/VAmPI, MIT licence).
+  # An independent, deliberately vulnerable REST API NOT written by the APIGuard
+  # authors. Started with third_party/run_vampi.py on ports 8003 / 8004.
+  # Tokens are real, short-lived JWTs obtained by logging in at scan time, and
+  # each user's book title is discovered at scan time (titles are random).
+  # ---------------------------------------------------------------------------
+  - id: target-vampi-vulnerable
+    name: "VAmPI (third-party) - Vulnerable"
+    base_url: "http://127.0.0.1:8003"
+    environment: "third-party-benchmark"
+    allowed_hosts: ["127.0.0.1", "localhost"]
+    allowed_ports: [8003]
+    allowed_paths: &vampi_paths ["/users/v1", "/books/v1", "/me"]
+    allowed_methods: ["GET", "POST"]
+    is_authorized: true
+    auth_profiles: &vampi_profiles
+      alice:   # VAmPI's built-in user "name1"
+        username: "name1"
+        role: "user"
+        login: {path: "/users/v1/login", method: "POST", body: {username: "name1", password: "pass1"}, token_field: "auth_token"}
+      bob:     # VAmPI's built-in user "name2"
+        username: "name2"
+        role: "user"
+        login: {path: "/users/v1/login", method: "POST", body: {username: "name2", password: "pass2"}, token_field: "auth_token"}
+      admin:
+        username: "admin"
+        role: "admin"
+        login: {path: "/users/v1/login", method: "POST", body: {username: "admin", password: "pass1"}, token_field: "auth_token"}
+    resource_discovery: &vampi_discovery
+      - {path: "/books/v1", list_field: "Books", owner_field: "user", value_field: "book_title", resource_key: "book_title"}
+    test_resources: &vampi_resources
+      alice: {username: "name1"}
+      bob: {username: "name2"}
+    endpoint_policies: &vampi_policies
+      - path: "/me"
+        method: "GET"
+        authentication_required: true
+        returns_identity: true
+        identity_field: "data.username"
+
+      - path: "/books/v1/{book_title}"
+        method: "GET"
+        authentication_required: true
+        ownership_required: true
+        resource_key: "book_title"
+        check_data_exposure: false   # the owner is meant to see their own secret
+
+      - path: "/books/v1"
+        method: "POST"
+        authentication_required: true
+        request_schema:
+          required_fields: ["book_title", "secret"]
+          field_types: {book_title: "string", secret: "string"}
+          example_body: {book_title: "apiguard-{unique}", secret: "apiguard probe"}
+
+      - path: "/users/v1/register"
+        method: "POST"
+        authentication_required: false
+        request_schema:
+          required_fields: ["username", "password", "email"]
+          field_types: {username: "string", password: "string", email: "string"}
+          example_body: {username: "apiguard_{unique}", password: "Probe-{unique}", email: "probe_{unique}@example.com"}
+          mass_assignment:
+            inject: {admin: true}
+            verify:
+              login: {path: "/users/v1/login", method: "POST", credential_fields: ["username", "password"], token_field: "auth_token"}
+              request: {method: "GET", path: "/me"}
+              field: "data.admin"
+              privileged_value: true
+
+      - path: "/users/v1/_debug"
+        method: "GET"
+        authentication_required: false
+        check_data_exposure: true
+        forbidden_response_fields: ["password"]
+
+      - path: "/users/v1"
+        method: "GET"
+        authentication_required: false
+        check_data_exposure: true
+        forbidden_response_fields: ["password"]
+
+  - id: target-vampi-secure
+    name: "VAmPI (third-party) - Secure mode"
+    base_url: "http://127.0.0.1:8004"
+    environment: "third-party-benchmark"
+    allowed_hosts: ["127.0.0.1", "localhost"]
+    allowed_ports: [8004]
+    allowed_paths: *vampi_paths
+    allowed_methods: ["GET", "POST"]
+    is_authorized: true
+    auth_profiles: *vampi_profiles
+    resource_discovery: *vampi_discovery
+    test_resources: *vampi_resources
+    endpoint_policies: *vampi_policies

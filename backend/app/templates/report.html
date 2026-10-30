@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APIGuard Security Report — {{ report.scan_metadata.scan_id[:8] }}</title>
+    <style>
+        :root {
+            --bg-dark: #090d16;
+            --surface: #111827;
+            --surface-hover: #1f2937;
+            --border: #374151;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --accent-cyan: #06b6d4;
+            --accent-green: #10b981;
+            --accent-amber: #f59e0b;
+            --accent-red: #ef4444;
+            --accent-purple: #8b5cf6;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+        .container { max-width: 1080px; margin: 0 auto; }
+        .header {
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 24px;
+            margin-bottom: 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .title { font-size: 26px; font-weight: 700; color: #fff; letter-spacing: -0.5px; }
+        .badge-brand {
+            display: inline-block;
+            background: rgba(6, 182, 212, 0.15);
+            color: var(--accent-cyan);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            padding: 4px 10px;
+            border-radius: 9999px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 6px;
+        }
+        .meta-table {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 32px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+        .meta-item .label { font-size: 12px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 4px; }
+        .meta-item .value { font-size: 15px; font-weight: 500; word-break: break-all; }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 14px;
+            margin-bottom: 32px;
+        }
+        .stat-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 18px;
+            text-align: center;
+        }
+        .stat-card .val { font-size: 32px; font-weight: 700; line-height: 1.1; margin-bottom: 4px; }
+        .stat-card .desc { font-size: 12px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; }
+        .stat-pass .val { color: var(--accent-green); }
+        .stat-confirmed .val { color: var(--accent-red); }
+        .stat-suspected .val { color: var(--accent-amber); }
+        .stat-error .val { color: var(--accent-purple); }
+
+        h2 { font-size: 20px; font-weight: 600; margin: 32px 0 16px; color: #fff; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+
+        .finding-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 22px;
+            margin-bottom: 18px;
+        }
+        .finding-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .finding-title { font-size: 17px; font-weight: 600; color: #fff; }
+        .tag {
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .tag-CRITICAL { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid #ef4444; }
+        .tag-HIGH { background: rgba(249, 115, 22, 0.2); color: #fb923c; border: 1px solid #f97316; }
+        .tag-MEDIUM { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid #f59e0b; }
+        .tag-LOW { background: rgba(6, 182, 212, 0.2); color: #22d3ee; border: 1px solid #06b6d4; }
+        .tag-PASS { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+        .tag-CONFIRMED { background: rgba(239, 68, 68, 0.25); color: #fca5a5; }
+
+        .detail-row { margin: 10px 0; }
+        .detail-label { font-size: 12px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 2px; }
+        .detail-val { font-size: 14px; }
+        .code-box {
+            background: #030712;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 12px;
+            font-family: Consolas, monospace;
+            font-size: 12px;
+            white-space: pre-wrap;
+            color: #a5f3fc;
+            overflow-x: auto;
+            margin-top: 6px;
+        }
+        .remediation-box {
+            background: rgba(16, 185, 129, 0.08);
+            border-left: 4px solid var(--accent-green);
+            padding: 12px 16px;
+            margin-top: 12px;
+            border-radius: 0 6px 6px 0;
+            font-size: 14px;
+        }
+        .limitations-box {
+            background: rgba(245, 158, 11, 0.08);
+            border-left: 4px solid var(--accent-amber);
+            padding: 14px 18px;
+            margin: 24px 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .ethical-footer {
+            margin-top: 48px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            font-size: 12px;
+            color: var(--text-muted);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div>
+            <h1 class="title">APIGuard Security Assessment Report</h1>
+            <span class="badge-brand">Automated REST API Security Framework</span>
+        </div>
+        <div style="text-align: right; color: var(--text-muted); font-size: 13px;">
+            <div>Scan ID: <code>{{ report.scan_metadata.scan_id }}</code></div>
+            <div>Generated: {{ report.generated_at[:19] }} UTC</div>
+        </div>
+    </div>
+
+    <div class="meta-table">
+        <div class="meta-item">
+            <div class="label">Target System</div>
+            <div class="value">{{ report.scan_metadata.target_name }}</div>
+        </div>
+        <div class="meta-item">
+            <div class="label">Base URL</div>
+            <div class="value"><code>{{ report.scan_metadata.target_url }}</code></div>
+        </div>
+        <div class="meta-item">
+            <div class="label">Scan Status</div>
+            <div class="value" style="color:var(--accent-green);">{{ report.scan_metadata.status }}</div>
+        </div>
+        <div class="meta-item">
+            <div class="label">Execution Duration</div>
+            <div class="value">{{ report.scan_metadata.duration_ms or 0 }} ms</div>
+        </div>
+    </div>
+
+    <h2>Test Statistics</h2>
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="val">{{ report.statistics.total_tests }}</div>
+            <div class="desc">Total Tests</div>
+        </div>
+        <div class="stat-card stat-pass">
+            <div class="val">{{ report.statistics.passed }}</div>
+            <div class="desc">Passed</div>
+        </div>
+        <div class="stat-card stat-confirmed">
+            <div class="val">{{ report.statistics.confirmed }}</div>
+            <div class="desc">Confirmed Weaknesses</div>
+        </div>
+        <div class="stat-card stat-suspected">
+            <div class="val">{{ report.statistics.suspected }}</div>
+            <div class="desc">Suspected</div>
+        </div>
+        <div class="stat-card stat-error">
+            <div class="val">{{ report.statistics.errors }}</div>
+            <div class="desc">Errors</div>
+        </div>
+    </div>
+
+    <h2>Security Findings & Weaknesses</h2>
+    {% set found_count = namespace(count=0) %}
+    {% for finding in report.findings %}
+        {% if finding.status in ['CONFIRMED', 'SUSPECTED'] %}
+            {% set found_count.count = found_count.count + 1 %}
+            <div class="finding-card">
+                <div class="finding-header">
+                    <div>
+                        <span class="tag tag-{{ finding.severity }}">{{ finding.severity }}</span>
+                        <span class="tag tag-{{ finding.status }}">{{ finding.status }}</span>
+                        <strong style="margin-left: 8px; font-size: 16px;">{{ finding.test_name }}</strong>
+                    </div>
+                    <code style="color:var(--text-muted); font-size: 13px;">{{ finding.test_id }} &bull; {{ finding.category }}</code>
+                </div>
+
+                <div class="detail-row">
+                    <div class="detail-label">Endpoint</div>
+                    <div class="detail-val"><code>{{ finding.http_method }} {{ finding.endpoint }}</code></div>
+                </div>
+
+                {% if finding.standards and finding.standards.owasp %}
+                <div class="detail-row">
+                    <div class="detail-label">Standards</div>
+                    <div class="detail-val">
+                        <a href="{{ finding.standards.owasp.url }}" style="color:inherit">{{ finding.standards.owasp.id }} {{ finding.standards.owasp.name }}</a>
+                        {% for cwe in finding.standards.cwe %} &bull; <a href="{{ cwe.url }}" style="color:inherit" title="{{ cwe.name }}">{{ cwe.id }}</a>{% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <div class="detail-row">
+                    <div class="detail-label">Explanation & Impact</div>
+                    <div class="detail-val">{{ finding.explanation or finding.impact }}</div>
+                </div>
+
+                <div class="detail-row">
+                    <div class="detail-label">Expected Behavior</div>
+                    <div class="detail-val">{{ finding.expected_result }}</div>
+                </div>
+
+                <div class="detail-row">
+                    <div class="detail-label">Observed Evidence (Redacted)</div>
+                    <div class="detail-val">{{ finding.actual_result }}</div>
+                    {% if finding.evidence %}
+                    <pre class="code-box">{{ finding.evidence | tojson(indent=2) }}</pre>
+                    {% endif %}
+                </div>
+
+                {% if finding.remediation %}
+                <div class="remediation-box">
+                    <strong>Validated Remediation Recommendation:</strong><br>
+                    {{ finding.remediation }}
+                </div>
+                {% endif %}
+            </div>
+        {% endif %}
+    {% endfor %}
+
+    {% if found_count.count == 0 %}
+        <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid var(--accent-green); padding: 20px; border-radius: 8px; text-align: center; color: #a7f3d0;">
+            <h3>No Security Weaknesses Confirmed</h3>
+            <p>All executed checks satisfied defined security requirements and policies.</p>
+        </div>
+    {% endif %}
+
+    <h2>All Executed Test Cases</h2>
+    <table style="width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; font-size: 13px;">
+        <thead>
+            <tr style="background: #1f2937; text-align: left; border-bottom: 1px solid var(--border);">
+                <th style="padding: 12px;">ID</th>
+                <th style="padding: 12px;">Test Name</th>
+                <th style="padding: 12px;">Endpoint</th>
+                <th style="padding: 12px;">Category</th>
+                <th style="padding: 12px;">Status</th>
+                <th style="padding: 12px;">Severity</th>
+                <th style="padding: 12px;">OWASP / CWE</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for finding in report.findings %}
+            <tr style="border-bottom: 1px solid var(--border);">
+                <td style="padding: 10px 12px;"><code>{{ finding.test_id }}</code></td>
+                <td style="padding: 10px 12px; font-weight: 500;">{{ finding.test_name }}</td>
+                <td style="padding: 10px 12px;"><code>{{ finding.http_method }} {{ finding.endpoint }}</code></td>
+                <td style="padding: 10px 12px; color: var(--text-muted);">{{ finding.category }}</td>
+                <td style="padding: 10px 12px;"><span class="tag tag-{{ finding.status }}">{{ finding.status }}</span></td>
+                <td style="padding: 10px 12px;"><span class="tag tag-{{ finding.severity }}">{{ finding.severity }}</span></td>
+                <td style="padding: 10px 12px; color: var(--text-muted); white-space: nowrap;">{% if finding.standards and finding.standards.owasp %}{{ finding.standards.owasp.id }} &middot; {{ finding.standards.cwe | map(attribute='id') | join(', ') }}{% endif %}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="limitations-box">
+        <h3 style="color: var(--accent-amber); margin-bottom: 6px;">Evaluation Scope & Limitations</h3>
+        <ul style="margin-left: 20px; font-size: 13px;">
+            {% for item in report.coverage_limitations %}
+            <li>{{ item }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="ethical-footer">
+        <p>{{ report.ethical_testing_statement }}</p>
+        <p style="margin-top: 6px;">APIGuard Security Testing Framework &bull; Academic Ethical Hacking Prototype</p>
+    </div>
+</div>
+</body>
+</html>
+

@@ -1,0 +1,8 @@
+Local Vulnerable Demo API -> Local Secured Demo API
+  baseline confirmed=36  after=0
+  remediated=27 persistent=0 new=0 rate=100.0%
+VAmPI (third-party) - Vulnerable -> VAmPI (third-party) - Secure mode
+  baseline confirmed=5  after=2
+  remediated=3 persistent=2 new=0 rate=60.0%
+   persistent: DATA-001 /users/v1/_debug
+   persistent: DATA-003 /users/v1/_debug

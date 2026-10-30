@@ -1,0 +1,6 @@
+=== VAmPI port 8003: register with admin:true, login, /me
+{"message": "Successfully registered. Login to receive an auth token.", "status": "success"}
+{"data": {"admin": true, "email": "probe29746@example.com", "username": "probe29746"}, "status": "success"}
+=== VAmPI port 8004: register with admin:true, login, /me
+{"message": "Successfully registered. Login to receive an auth token.", "status": "success"}
+{"data": {"admin": false, "email": "probe19766@example.com", "username": "probe19766"}, "status": "success"}

@@ -1,0 +1,80 @@
+# APIGuard detection-accuracy ground truth
+# =========================================
+# Labels were derived by READING THE TARGETS' SOURCE CODE, independently of the
+# scanner's output. For every target we list the (check, endpoint) pairs that are
+# genuinely vulnerable ("positives"). Every other (check, endpoint) pair that
+# APIGuard evaluates on that target is labelled NOT vulnerable (negative).
+# A result counts as "flagged" if APIGuard reports it CONFIRMED or SUSPECTED.
+# Pairs are counted once even if a check sends several probes to one endpoint.
+
+targets:
+  target-vulnerable-demo:
+    source: "demo_api/app/routes/*.py (mode=vulnerable)"
+    positives:
+      - {check: AUTH-001, endpoint: /api/profile,                 why: "get_profile uses get_current_user_optional and falls back to alice"}
+      - {check: AUTH-001, endpoint: "/api/orders/{order_id}",     why: "token is optional; no token -> order returned"}
+      - {check: AUTH-001, endpoint: /api/admin/stats,             why: "returns ADMIN_STATS without any token"}
+      - {check: AUTH-001, endpoint: /api/orders,                  why: "create_order accepts anonymous callers ('anonymous' owner)"}
+      - {check: AUTH-001, endpoint: "/api/users/{user_id}/profile", why: "token is optional; no token -> full profile"}
+      - {check: AUTH-002, endpoint: /api/profile,                 why: "unknown token -> get_current_user_optional returns None -> alice's profile"}
+      - {check: AUTH-002, endpoint: /api/admin/stats,             why: "unknown token ignored, stats returned"}
+      - {check: AUTH-002, endpoint: /api/orders,                  why: "unknown token -> owner 'anonymous', order created"}
+      - {check: AUTH-004, endpoint: /api/profile,                 why: "policy says authentication_required but code does not enforce it"}
+      - {check: AUTH-004, endpoint: "/api/orders/{order_id}",     why: "same policy drift"}
+      - {check: AUTH-004, endpoint: /api/admin/stats,             why: "same policy drift"}
+      - {check: AUTH-004, endpoint: /api/orders,                  why: "same policy drift"}
+      - {check: AUTH-004, endpoint: "/api/users/{user_id}/profile", why: "same policy drift"}
+      - {check: AUTHZ-001, endpoint: "/api/orders/{order_id}",    why: "no ownership check: alice reads order-1002 (bob)"}
+      - {check: AUTHZ-001, endpoint: "/api/users/{user_id}/profile", why: "no ownership check: alice reads bob's profile"}
+      - {check: AUTHZ-002, endpoint: /api/admin/stats,            why: "no role check for admin endpoint"}
+      - {check: AUTHZ-003, endpoint: "/api/orders/{order_id}",    why: "reverse BOLA: bob reads alice's order"}
+      - {check: AUTHZ-003, endpoint: "/api/users/{user_id}/profile", why: "reverse BOLA: bob reads alice's profile"}
+      - {check: INPUT-001, endpoint: /api/orders,                 why: "CreateOrderRequestVulnerable: all fields Optional, body.get() defaults"}
+      - {check: INPUT-002, endpoint: /api/orders,                 why: "raw body stored without type validation"}
+      - {check: INPUT-003, endpoint: /api/orders,                 why: "no range checks: quantity -5 / price 0 accepted"}
+      - {check: INPUT-005, endpoint: /api/orders,                 why: "declared strict schema; unknown fields silently accepted (contract violation, not bound)"}
+      - {check: DATA-001, endpoint: /api/profile,                 why: "get_user_full returns password_hash, api_key, internal_notes"}
+      - {check: DATA-001, endpoint: /api/admin/stats,             why: "returns internal_config (declared forbidden)"}
+      - {check: DATA-001, endpoint: "/api/users/{user_id}/profile", why: "get_user_full returns password_hash, api_key"}
+      - {check: DATA-002, endpoint: /api/profile,                 why: "fields beyond allowed_response_fields"}
+      - {check: DATA-004, endpoint: /api/profile,                 why: "response not minimal (sensitive extras)"}
+    notes: >
+      Negatives include AUTH-002 on /api/orders/{order_id} and /api/users/{user_id}/profile
+      (these explicitly reject unknown tokens with 401), AUTH-003 (identity is bound
+      correctly), AUTHZ-004 (admin may legitimately read stats), INPUT-004 (malformed
+      JSON returns 422), order responses (no sensitive fields) and DATA-003 (no
+      credential-like keys are nested below the top level; internal_config itself is
+      covered by DATA-001).
+
+  target-secure-demo:
+    source: "demo_api/app/routes/*.py (mode=secure)"
+    positives: []
+    notes: "Every route authenticates first, enforces ownership/roles, validates with strict Pydantic models and returns safe DTOs."
+
+  target-vampi-vulnerable:
+    source: "third_party/VAmPI (vulnerable=1), independent third-party code"
+    positives:
+      - {check: AUTHZ-001, endpoint: "/books/v1/{book_title}", why: "books.get_by_title: 'if vuln' looks the book up by title only (BOLA)"}
+      - {check: AUTHZ-003, endpoint: "/books/v1/{book_title}", why: "same flaw, reverse direction"}
+      - {check: INPUT-005, endpoint: /users/v1/register,      why: "users.register_user: 'if vuln and admin in request_data' -> admin bound"}
+      - {check: DATA-001,  endpoint: /users/v1/_debug,        why: "User.json_debug returns plaintext password for every user"}
+      - {check: DATA-003,  endpoint: /users/v1/_debug,        why: "passwords nested inside users[] objects"}
+
+  target-vampi-secure:
+    source: "third_party/VAmPI (vulnerable=0), independent third-party code"
+    positives:
+      - {check: DATA-001, endpoint: /users/v1/_debug, why: "debug endpoint is NOT gated by the vuln flag (VAmPI app.py notes it stays vulnerable)"}
+      - {check: DATA-003, endpoint: /users/v1/_debug, why: "same, nested inside users[]"}
+
+# VAmPI's own published vulnerability list (third_party/VAmPI/README.md) and
+# whether each one is inside APIGuard's declared scope.
+vampi_published_vulnerabilities:
+  - {name: "Broken Object Level Authorization",           in_scope: true,  checks: [AUTHZ-001, AUTHZ-003]}
+  - {name: "Mass Assignment",                             in_scope: true,  checks: [INPUT-005]}
+  - {name: "Excessive Data Exposure through debug endpoint", in_scope: true, checks: [DATA-001, DATA-003]}
+  - {name: "Unauthorized Password Change",                in_scope: true,  checks: [], reason: "write-based BOLA (PUT): APIGuard only probes object reads, to stay non-destructive"}
+  - {name: "SQLi Injection",                              in_scope: false, reason: "injection testing is out of scope (non-destructive design)"}
+  - {name: "User and Password Enumeration",               in_scope: false, reason: "login-response analysis not implemented"}
+  - {name: "RegexDOS (Denial of Service)",                in_scope: false, reason: "DoS testing deliberately excluded"}
+  - {name: "Lack of Resources & Rate Limiting",           in_scope: false, reason: "rate-limit testing excluded (request budget of 200)"}
+  - {name: "JWT authentication bypass via weak signing key", in_scope: false, reason: "token cryptanalysis / brute force excluded"}

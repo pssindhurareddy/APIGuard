@@ -1,0 +1,9 @@
+# Dependencies for the bundled VAmPI benchmark (pins updated for Python 3.12/3.13;
+# upstream pins SQLAlchemy 2.0.2, which does not run on Python 3.13).
+connexion[swagger-ui]==2.14.2
+flask==2.2.5
+werkzeug==2.2.3
+flask-sqlalchemy==3.0.5
+sqlalchemy==2.0.36
+jsonschema==4.17.3
+PyJWT==2.10.1

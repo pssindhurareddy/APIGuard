@@ -1,0 +1,1496 @@
+{
+  "generated": "2026-10-30 17:27 UTC",
+  "per_target": {
+    "APIGuard demo API - vulnerable": {
+      "TP": 27,
+      "FP": 0,
+      "TN": 9,
+      "FN": 0,
+      "total": 36,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "accuracy": 1.0,
+      "fp_rate": 0.0
+    },
+    "APIGuard demo API - secure": {
+      "TP": 0,
+      "FP": 0,
+      "TN": 35,
+      "FN": 0,
+      "total": 35,
+      "precision": null,
+      "recall": null,
+      "f1": null,
+      "accuracy": 1.0,
+      "fp_rate": 0.0
+    },
+    "VAmPI - vulnerable": {
+      "TP": 5,
+      "FP": 0,
+      "TN": 22,
+      "FN": 0,
+      "total": 27,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "accuracy": 1.0,
+      "fp_rate": 0.0
+    },
+    "VAmPI - secure mode": {
+      "TP": 2,
+      "FP": 0,
+      "TN": 25,
+      "FN": 0,
+      "total": 27,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "accuracy": 1.0,
+      "fp_rate": 0.0
+    }
+  },
+  "by_origin": {
+    "APIGuard demo API (own)": {
+      "TP": 27,
+      "FP": 0,
+      "TN": 44,
+      "FN": 0,
+      "total": 71,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "accuracy": 1.0,
+      "fp_rate": 0.0
+    },
+    "VAmPI (third-party)": {
+      "TP": 7,
+      "FP": 0,
+      "TN": 47,
+      "FN": 0,
+      "total": 54,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "accuracy": 1.0,
+      "fp_rate": 0.0
+    },
+    "**All targets**": {
+      "TP": 34,
+      "FP": 0,
+      "TN": 91,
+      "FN": 0,
+      "total": 125,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "accuracy": 1.0,
+      "fp_rate": 0.0
+    }
+  },
+  "by_category": {
+    "Authentication": {
+      "TP": 13,
+      "FP": 0,
+      "TN": 45,
+      "FN": 0,
+      "total": 58,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "accuracy": 1.0,
+      "fp_rate": 0.0
+    },
+    "Authorization": {
+      "TP": 7,
+      "FP": 0,
+      "TN": 9,
+      "FN": 0,
+      "total": 16,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "accuracy": 1.0,
+      "fp_rate": 0.0
+    },
+    "Input Validation": {
+      "TP": 5,
+      "FP": 0,
+      "TN": 21,
+      "FN": 0,
+      "total": 26,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "accuracy": 1.0,
+      "fp_rate": 0.0
+    },
+    "Data Exposure": {
+      "TP": 9,
+      "FP": 0,
+      "TN": 16,
+      "FN": 0,
+      "total": 25,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "accuracy": 1.0,
+      "fp_rate": 0.0
+    }
+  },
+  "scans": {
+    "APIGuard demo API - vulnerable": {
+      "id": "a20d5a93-158e-4fd1-9091-e2c010e96a2f",
+      "total_tests": 45,
+      "passed": 9,
+      "confirmed": 36,
+      "suspected": 0,
+      "errors": 0,
+      "duration_ms": 1067
+    },
+    "APIGuard demo API - secure": {
+      "id": "0b65fc23-7e72-432d-93e9-fbacf04e9016",
+      "total_tests": 44,
+      "passed": 44,
+      "confirmed": 0,
+      "suspected": 0,
+      "errors": 0,
+      "duration_ms": 1080
+    },
+    "VAmPI - vulnerable": {
+      "id": "e8da2d9c-c18b-4e33-b97e-edc2add5c29a",
+      "total_tests": 34,
+      "passed": 28,
+      "confirmed": 5,
+      "suspected": 0,
+      "errors": 0,
+      "duration_ms": 1139
+    },
+    "VAmPI - secure mode": {
+      "id": "0d0597c3-3a22-40b2-bacc-78d8440533a3",
+      "total_tests": 34,
+      "passed": 31,
+      "confirmed": 2,
+      "suspected": 0,
+      "errors": 0,
+      "duration_ms": 1065
+    }
+  },
+  "vampi_coverage": [
+    {
+      "name": "Broken Object Level Authorization",
+      "in_scope": true,
+      "checks": [
+        "AUTHZ-001",
+        "AUTHZ-003"
+      ],
+      "detected": true
+    },
+    {
+      "name": "Mass Assignment",
+      "in_scope": true,
+      "checks": [
+        "INPUT-005"
+      ],
+      "detected": true
+    },
+    {
+      "name": "Excessive Data Exposure through debug endpoint",
+      "in_scope": true,
+      "checks": [
+        "DATA-001",
+        "DATA-003"
+      ],
+      "detected": true
+    },
+    {
+      "name": "Unauthorized Password Change",
+      "in_scope": true,
+      "checks": [],
+      "reason": "write-based BOLA (PUT): APIGuard only probes object reads, to stay non-destructive",
+      "detected": false
+    },
+    {
+      "name": "SQLi Injection",
+      "in_scope": false,
+      "reason": "injection testing is out of scope (non-destructive design)",
+      "detected": false
+    },
+    {
+      "name": "User and Password Enumeration",
+      "in_scope": false,
+      "reason": "login-response analysis not implemented",
+      "detected": false
+    },
+    {
+      "name": "RegexDOS (Denial of Service)",
+      "in_scope": false,
+      "reason": "DoS testing deliberately excluded",
+      "detected": false
+    },
+    {
+      "name": "Lack of Resources & Rate Limiting",
+      "in_scope": false,
+      "reason": "rate-limit testing excluded (request budget of 200)",
+      "detected": false
+    },
+    {
+      "name": "JWT authentication bypass via weak signing key",
+      "in_scope": false,
+      "reason": "token cryptanalysis / brute force excluded",
+      "detected": false
+    }
+  ],
+  "pairs": [
+    {
+      "check": "AUTH-001",
+      "endpoint": "/api/admin/stats",
+      "flagged": true,
+      "vulnerable": true,
+      "outcome": "TP",
+      "target": "APIGuard demo API - vulnerable",
+      "origin": "own",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-001",
+      "endpoint": "/api/orders",
+      "flagged": true,
+      "vulnerable": true,
+      "outcome": "TP",
+      "target": "APIGuard demo API - vulnerable",
+      "origin": "own",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-001",
+      "endpoint": "/api/orders/{order_id}",
+      "flagged": true,
+      "vulnerable": true,
+      "outcome": "TP",
+      "target": "APIGuard demo API - vulnerable",
+      "origin": "own",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-001",
+      "endpoint": "/api/profile",
+      "flagged": true,
+      "vulnerable": true,
+      "outcome": "TP",
+      "target": "APIGuard demo API - vulnerable",
+      "origin": "own",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-001",
+      "endpoint": "/api/users/{user_id}/profile",
+      "flagged": true,
+      "vulnerable": true,
+      "outcome": "TP",
+      "target": "APIGuard demo API - vulnerable",
+      "origin": "own",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-002",
+      "endpoint": "/api/admin/stats",
+      "flagged": true,
+      "vulnerable": true,
+      "outcome": "TP",
+      "target": "APIGuard demo API - vulnerable",
+      "origin": "own",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-002",
+      "endpoint": "/api/orders",
+      "flagged": true,
+      "vulnerable": true,
+      "outcome": "TP",
+      "target": "APIGuard demo API - vulnerable",
+      "origin": "own",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-002",
+      "endpoint": "/api/orders/{order_id}",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "APIGuard demo API - vulnerable",
+      "origin": "own",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-002",
+      "endpoint": "/api/profile",
+      "flagged": true,
+      "vulnerable": true,
+      "outcome": "TP",
+      "target": "APIGuard demo API - vulnerable",
+      "origin": "own",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-002",
+      "endpoint": "/api/users/{user_id}/profile",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "APIGuard demo API - vulnerable",
+      "origin": "own",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-003",
+      "endpoint": "/api/profile",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "APIGuard demo API - vulnerable",
+      "origin": "own",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-004",
+      "endpoint": "/api/admin/stats",
+      "flagged": true,
+      "vulnerable": true,
+      "outcome": "TP",
+      "target": "APIGuard demo API - vulnerable",
+      "origin": "own",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-004",
+      "endpoint": "/api/orders",
+      "flagged": true,
+      "vulnerable": true,
+      "outcome": "TP",
+      "target": "APIGuard demo API - vulnerable",
+      "origin": "own",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-004",
+      "endpoint": "/api/orders/{order_id}",
+      "flagged": true,
+      "vulnerable": true,
+      "outcome": "TP",
+      "target": "APIGuard demo API - vulnerable",
+      "origin": "own",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-004",
+      "endpoint": "/api/profile",
+      "flagged": true,
+      "vulnerable": true,
+      "outcome": "TP",
+      "target": "APIGuard demo API - vulnerable",
+      "origin": "own",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-004",
+      "endpoint": "/api/users/{user_id}/profile",
+      "flagged": true,
+      "vulnerable": true,
+      "outcome": "TP",
+      "target": "APIGuard demo API - vulnerable",
+      "origin": "own",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTHZ-001",
+      "endpoint": "/api/orders/{order_id}",
+      "flagged": true,
+      "vulnerable": true,
+      "outcome": "TP",
+      "target": "APIGuard demo API - vulnerable",
+      "origin": "own",
+      "category": "authorization"
+    },
+    {
+      "check": "AUTHZ-001",
+      "endpoint": "/api/users/{user_id}/profile",
+      "flagged": true,
+      "vulnerable": true,
+      "outcome": "TP",
+      "target": "APIGuard demo API - vulnerable",
+      "origin": "own",
+      "category": "authorization"
+    },
+    {
+      "check": "AUTHZ-002",
+      "endpoint": "/api/admin/stats",
+      "flagged": true,
+      "vulnerable": true,
+      "outcome": "TP",
+      "target": "APIGuard demo API - vulnerable",
+      "origin": "own",
+      "category": "authorization"
+    },
+    {
+      "check": "AUTHZ-003",
+      "endpoint": "/api/orders/{order_id}",
+      "flagged": true,
+      "vulnerable": true,
+      "outcome": "TP",
+      "target": "APIGuard demo API - vulnerable",
+      "origin": "own",
+      "category": "authorization"
+    },
+    {
+      "check": "AUTHZ-003",
+      "endpoint": "/api/users/{user_id}/profile",
+      "flagged": true,
+      "vulnerable": true,
+      "outcome": "TP",
+      "target": "APIGuard demo API - vulnerable",
+      "origin": "own",
+      "category": "authorization"
+    },
+    {
+      "check": "AUTHZ-004",
+      "endpoint": "/api/admin/stats",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "APIGuard demo API - vulnerable",
+      "origin": "own",
+      "category": "authorization"
+    },
+    {
+      "check": "DATA-001",
+      "endpoint": "/api/admin/stats",
+      "flagged": true,
+      "vulnerable": true,
+      "outcome": "TP",
+      "target": "APIGuard demo API - vulnerable",
+      "origin": "own",
+      "category": "data_exposure"
+    },
+    {
+      "check": "DATA-001",
+      "endpoint": "/api/orders/{order_id}",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "APIGuard demo API - vulnerable",
+      "origin": "own",
+      "category": "data_exposure"
+    },
+    {
+      "check": "DATA-001",
+      "endpoint": "/api/profile",
+      "flagged": true,
+      "vulnerable": true,
+      "outcome": "TP",
+      "target": "APIGuard demo API - vulnerable",
+      "origin": "own",
+      "category": "data_exposure"
+    },
+    {
+      "check": "DATA-001",
+      "endpoint": "/api/users/{user_id}/profile",
+      "flagged": true,
+      "vulnerable": true,
+      "outcome": "TP",
+      "target": "APIGuard demo API - vulnerable",
+      "origin": "own",
+      "category": "data_exposure"
+    },
+    {
+      "check": "DATA-002",
+      "endpoint": "/api/orders/{order_id}",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "APIGuard demo API - vulnerable",
+      "origin": "own",
+      "category": "data_exposure"
+    },
+    {
+      "check": "DATA-002",
+      "endpoint": "/api/profile",
+      "flagged": true,
+      "vulnerable": true,
+      "outcome": "TP",
+      "target": "APIGuard demo API - vulnerable",
+      "origin": "own",
+      "category": "data_exposure"
+    },
+    {
+      "check": "DATA-003",
+      "endpoint": "all_get_routes",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "APIGuard demo API - vulnerable",
+      "origin": "own",
+      "category": "data_exposure"
+    },
+    {
+      "check": "DATA-004",
+      "endpoint": "/api/orders/{order_id}",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "APIGuard demo API - vulnerable",
+      "origin": "own",
+      "category": "data_exposure"
+    },
+    {
+      "check": "DATA-004",
+      "endpoint": "/api/profile",
+      "flagged": true,
+      "vulnerable": true,
+      "outcome": "TP",
+      "target": "APIGuard demo API - vulnerable",
+      "origin": "own",
+      "category": "data_exposure"
+    },
+    {
+      "check": "INPUT-001",
+      "endpoint": "/api/orders",
+      "flagged": true,
+      "vulnerable": true,
+      "outcome": "TP",
+      "target": "APIGuard demo API - vulnerable",
+      "origin": "own",
+      "category": "input_validation"
+    },
+    {
+      "check": "INPUT-002",
+      "endpoint": "/api/orders",
+      "flagged": true,
+      "vulnerable": true,
+      "outcome": "TP",
+      "target": "APIGuard demo API - vulnerable",
+      "origin": "own",
+      "category": "input_validation"
+    },
+    {
+      "check": "INPUT-003",
+      "endpoint": "/api/orders",
+      "flagged": true,
+      "vulnerable": true,
+      "outcome": "TP",
+      "target": "APIGuard demo API - vulnerable",
+      "origin": "own",
+      "category": "input_validation"
+    },
+    {
+      "check": "INPUT-004",
+      "endpoint": "/api/orders",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "APIGuard demo API - vulnerable",
+      "origin": "own",
+      "category": "input_validation"
+    },
+    {
+      "check": "INPUT-005",
+      "endpoint": "/api/orders",
+      "flagged": true,
+      "vulnerable": true,
+      "outcome": "TP",
+      "target": "APIGuard demo API - vulnerable",
+      "origin": "own",
+      "category": "input_validation"
+    },
+    {
+      "check": "AUTH-001",
+      "endpoint": "/api/admin/stats",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "APIGuard demo API - secure",
+      "origin": "own",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-001",
+      "endpoint": "/api/orders",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "APIGuard demo API - secure",
+      "origin": "own",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-001",
+      "endpoint": "/api/orders/{order_id}",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "APIGuard demo API - secure",
+      "origin": "own",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-001",
+      "endpoint": "/api/profile",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "APIGuard demo API - secure",
+      "origin": "own",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-001",
+      "endpoint": "/api/users/{user_id}/profile",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "APIGuard demo API - secure",
+      "origin": "own",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-002",
+      "endpoint": "/api/admin/stats",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "APIGuard demo API - secure",
+      "origin": "own",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-002",
+      "endpoint": "/api/orders",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "APIGuard demo API - secure",
+      "origin": "own",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-002",
+      "endpoint": "/api/orders/{order_id}",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "APIGuard demo API - secure",
+      "origin": "own",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-002",
+      "endpoint": "/api/profile",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "APIGuard demo API - secure",
+      "origin": "own",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-002",
+      "endpoint": "/api/users/{user_id}/profile",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "APIGuard demo API - secure",
+      "origin": "own",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-003",
+      "endpoint": "/api/profile",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "APIGuard demo API - secure",
+      "origin": "own",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-004",
+      "endpoint": "/api/admin/stats",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "APIGuard demo API - secure",
+      "origin": "own",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-004",
+      "endpoint": "/api/orders",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "APIGuard demo API - secure",
+      "origin": "own",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-004",
+      "endpoint": "/api/orders/{order_id}",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "APIGuard demo API - secure",
+      "origin": "own",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-004",
+      "endpoint": "/api/profile",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "APIGuard demo API - secure",
+      "origin": "own",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-004",
+      "endpoint": "/api/users/{user_id}/profile",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "APIGuard demo API - secure",
+      "origin": "own",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTHZ-001",
+      "endpoint": "/api/orders/{order_id}",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "APIGuard demo API - secure",
+      "origin": "own",
+      "category": "authorization"
+    },
+    {
+      "check": "AUTHZ-001",
+      "endpoint": "/api/users/{user_id}/profile",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "APIGuard demo API - secure",
+      "origin": "own",
+      "category": "authorization"
+    },
+    {
+      "check": "AUTHZ-002",
+      "endpoint": "/api/admin/stats",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "APIGuard demo API - secure",
+      "origin": "own",
+      "category": "authorization"
+    },
+    {
+      "check": "AUTHZ-003",
+      "endpoint": "/api/orders/{order_id}",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "APIGuard demo API - secure",
+      "origin": "own",
+      "category": "authorization"
+    },
+    {
+      "check": "AUTHZ-003",
+      "endpoint": "/api/users/{user_id}/profile",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "APIGuard demo API - secure",
+      "origin": "own",
+      "category": "authorization"
+    },
+    {
+      "check": "AUTHZ-004",
+      "endpoint": "/api/admin/stats",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "APIGuard demo API - secure",
+      "origin": "own",
+      "category": "authorization"
+    },
+    {
+      "check": "DATA-001",
+      "endpoint": "/api/orders/{order_id}",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "APIGuard demo API - secure",
+      "origin": "own",
+      "category": "data_exposure"
+    },
+    {
+      "check": "DATA-001",
+      "endpoint": "/api/profile",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "APIGuard demo API - secure",
+      "origin": "own",
+      "category": "data_exposure"
+    },
+    {
+      "check": "DATA-001",
+      "endpoint": "/api/users/{user_id}/profile",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "APIGuard demo API - secure",
+      "origin": "own",
+      "category": "data_exposure"
+    },
+    {
+      "check": "DATA-002",
+      "endpoint": "/api/orders/{order_id}",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "APIGuard demo API - secure",
+      "origin": "own",
+      "category": "data_exposure"
+    },
+    {
+      "check": "DATA-002",
+      "endpoint": "/api/profile",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "APIGuard demo API - secure",
+      "origin": "own",
+      "category": "data_exposure"
+    },
+    {
+      "check": "DATA-003",
+      "endpoint": "all_get_routes",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "APIGuard demo API - secure",
+      "origin": "own",
+      "category": "data_exposure"
+    },
+    {
+      "check": "DATA-004",
+      "endpoint": "/api/orders/{order_id}",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "APIGuard demo API - secure",
+      "origin": "own",
+      "category": "data_exposure"
+    },
+    {
+      "check": "DATA-004",
+      "endpoint": "/api/profile",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "APIGuard demo API - secure",
+      "origin": "own",
+      "category": "data_exposure"
+    },
+    {
+      "check": "INPUT-001",
+      "endpoint": "/api/orders",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "APIGuard demo API - secure",
+      "origin": "own",
+      "category": "input_validation"
+    },
+    {
+      "check": "INPUT-002",
+      "endpoint": "/api/orders",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "APIGuard demo API - secure",
+      "origin": "own",
+      "category": "input_validation"
+    },
+    {
+      "check": "INPUT-003",
+      "endpoint": "/api/orders",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "APIGuard demo API - secure",
+      "origin": "own",
+      "category": "input_validation"
+    },
+    {
+      "check": "INPUT-004",
+      "endpoint": "/api/orders",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "APIGuard demo API - secure",
+      "origin": "own",
+      "category": "input_validation"
+    },
+    {
+      "check": "INPUT-005",
+      "endpoint": "/api/orders",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "APIGuard demo API - secure",
+      "origin": "own",
+      "category": "input_validation"
+    },
+    {
+      "check": "AUTH-001",
+      "endpoint": "/books/v1",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - vulnerable",
+      "origin": "third-party",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-001",
+      "endpoint": "/books/v1/{book_title}",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - vulnerable",
+      "origin": "third-party",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-001",
+      "endpoint": "/me",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - vulnerable",
+      "origin": "third-party",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-002",
+      "endpoint": "/books/v1",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - vulnerable",
+      "origin": "third-party",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-002",
+      "endpoint": "/books/v1/{book_title}",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - vulnerable",
+      "origin": "third-party",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-002",
+      "endpoint": "/me",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - vulnerable",
+      "origin": "third-party",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-003",
+      "endpoint": "/me",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - vulnerable",
+      "origin": "third-party",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-004",
+      "endpoint": "/books/v1",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - vulnerable",
+      "origin": "third-party",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-004",
+      "endpoint": "/books/v1/{book_title}",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - vulnerable",
+      "origin": "third-party",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-004",
+      "endpoint": "/me",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - vulnerable",
+      "origin": "third-party",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-004",
+      "endpoint": "/users/v1",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - vulnerable",
+      "origin": "third-party",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-004",
+      "endpoint": "/users/v1/_debug",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - vulnerable",
+      "origin": "third-party",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-004",
+      "endpoint": "/users/v1/register",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - vulnerable",
+      "origin": "third-party",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTHZ-001",
+      "endpoint": "/books/v1/{book_title}",
+      "flagged": true,
+      "vulnerable": true,
+      "outcome": "TP",
+      "target": "VAmPI - vulnerable",
+      "origin": "third-party",
+      "category": "authorization"
+    },
+    {
+      "check": "AUTHZ-003",
+      "endpoint": "/books/v1/{book_title}",
+      "flagged": true,
+      "vulnerable": true,
+      "outcome": "TP",
+      "target": "VAmPI - vulnerable",
+      "origin": "third-party",
+      "category": "authorization"
+    },
+    {
+      "check": "DATA-001",
+      "endpoint": "/me",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - vulnerable",
+      "origin": "third-party",
+      "category": "data_exposure"
+    },
+    {
+      "check": "DATA-001",
+      "endpoint": "/users/v1",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - vulnerable",
+      "origin": "third-party",
+      "category": "data_exposure"
+    },
+    {
+      "check": "DATA-001",
+      "endpoint": "/users/v1/_debug",
+      "flagged": true,
+      "vulnerable": true,
+      "outcome": "TP",
+      "target": "VAmPI - vulnerable",
+      "origin": "third-party",
+      "category": "data_exposure"
+    },
+    {
+      "check": "DATA-003",
+      "endpoint": "/users/v1/_debug",
+      "flagged": true,
+      "vulnerable": true,
+      "outcome": "TP",
+      "target": "VAmPI - vulnerable",
+      "origin": "third-party",
+      "category": "data_exposure"
+    },
+    {
+      "check": "INPUT-001",
+      "endpoint": "/books/v1",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - vulnerable",
+      "origin": "third-party",
+      "category": "input_validation"
+    },
+    {
+      "check": "INPUT-001",
+      "endpoint": "/users/v1/register",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - vulnerable",
+      "origin": "third-party",
+      "category": "input_validation"
+    },
+    {
+      "check": "INPUT-002",
+      "endpoint": "/books/v1",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - vulnerable",
+      "origin": "third-party",
+      "category": "input_validation"
+    },
+    {
+      "check": "INPUT-002",
+      "endpoint": "/users/v1/register",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - vulnerable",
+      "origin": "third-party",
+      "category": "input_validation"
+    },
+    {
+      "check": "INPUT-004",
+      "endpoint": "/books/v1",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - vulnerable",
+      "origin": "third-party",
+      "category": "input_validation"
+    },
+    {
+      "check": "INPUT-004",
+      "endpoint": "/users/v1/register",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - vulnerable",
+      "origin": "third-party",
+      "category": "input_validation"
+    },
+    {
+      "check": "INPUT-005",
+      "endpoint": "/books/v1",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - vulnerable",
+      "origin": "third-party",
+      "category": "input_validation"
+    },
+    {
+      "check": "INPUT-005",
+      "endpoint": "/users/v1/register",
+      "flagged": true,
+      "vulnerable": true,
+      "outcome": "TP",
+      "target": "VAmPI - vulnerable",
+      "origin": "third-party",
+      "category": "input_validation"
+    },
+    {
+      "check": "AUTH-001",
+      "endpoint": "/books/v1",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - secure mode",
+      "origin": "third-party",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-001",
+      "endpoint": "/books/v1/{book_title}",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - secure mode",
+      "origin": "third-party",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-001",
+      "endpoint": "/me",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - secure mode",
+      "origin": "third-party",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-002",
+      "endpoint": "/books/v1",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - secure mode",
+      "origin": "third-party",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-002",
+      "endpoint": "/books/v1/{book_title}",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - secure mode",
+      "origin": "third-party",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-002",
+      "endpoint": "/me",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - secure mode",
+      "origin": "third-party",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-003",
+      "endpoint": "/me",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - secure mode",
+      "origin": "third-party",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-004",
+      "endpoint": "/books/v1",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - secure mode",
+      "origin": "third-party",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-004",
+      "endpoint": "/books/v1/{book_title}",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - secure mode",
+      "origin": "third-party",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-004",
+      "endpoint": "/me",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - secure mode",
+      "origin": "third-party",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-004",
+      "endpoint": "/users/v1",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - secure mode",
+      "origin": "third-party",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-004",
+      "endpoint": "/users/v1/_debug",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - secure mode",
+      "origin": "third-party",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTH-004",
+      "endpoint": "/users/v1/register",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - secure mode",
+      "origin": "third-party",
+      "category": "authentication"
+    },
+    {
+      "check": "AUTHZ-001",
+      "endpoint": "/books/v1/{book_title}",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - secure mode",
+      "origin": "third-party",
+      "category": "authorization"
+    },
+    {
+      "check": "AUTHZ-003",
+      "endpoint": "/books/v1/{book_title}",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - secure mode",
+      "origin": "third-party",
+      "category": "authorization"
+    },
+    {
+      "check": "DATA-001",
+      "endpoint": "/me",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - secure mode",
+      "origin": "third-party",
+      "category": "data_exposure"
+    },
+    {
+      "check": "DATA-001",
+      "endpoint": "/users/v1",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - secure mode",
+      "origin": "third-party",
+      "category": "data_exposure"
+    },
+    {
+      "check": "DATA-001",
+      "endpoint": "/users/v1/_debug",
+      "flagged": true,
+      "vulnerable": true,
+      "outcome": "TP",
+      "target": "VAmPI - secure mode",
+      "origin": "third-party",
+      "category": "data_exposure"
+    },
+    {
+      "check": "DATA-003",
+      "endpoint": "/users/v1/_debug",
+      "flagged": true,
+      "vulnerable": true,
+      "outcome": "TP",
+      "target": "VAmPI - secure mode",
+      "origin": "third-party",
+      "category": "data_exposure"
+    },
+    {
+      "check": "INPUT-001",
+      "endpoint": "/books/v1",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - secure mode",
+      "origin": "third-party",
+      "category": "input_validation"
+    },
+    {
+      "check": "INPUT-001",
+      "endpoint": "/users/v1/register",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - secure mode",
+      "origin": "third-party",
+      "category": "input_validation"
+    },
+    {
+      "check": "INPUT-002",
+      "endpoint": "/books/v1",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - secure mode",
+      "origin": "third-party",
+      "category": "input_validation"
+    },
+    {
+      "check": "INPUT-002",
+      "endpoint": "/users/v1/register",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - secure mode",
+      "origin": "third-party",
+      "category": "input_validation"
+    },
+    {
+      "check": "INPUT-004",
+      "endpoint": "/books/v1",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - secure mode",
+      "origin": "third-party",
+      "category": "input_validation"
+    },
+    {
+      "check": "INPUT-004",
+      "endpoint": "/users/v1/register",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - secure mode",
+      "origin": "third-party",
+      "category": "input_validation"
+    },
+    {
+      "check": "INPUT-005",
+      "endpoint": "/books/v1",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - secure mode",
+      "origin": "third-party",
+      "category": "input_validation"
+    },
+    {
+      "check": "INPUT-005",
+      "endpoint": "/users/v1/register",
+      "flagged": false,
+      "vulnerable": false,
+      "outcome": "TN",
+      "target": "VAmPI - secure mode",
+      "origin": "third-party",
+      "category": "input_validation"
+    }
+  ]
+}

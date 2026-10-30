@@ -1,0 +1,65 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Testing & Cache
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Database & Scans
+backend/apiguard.db
+backend/apiguard.db-wal
+backend/apiguard.db-shm
+
+# Frontend / Node
+frontend/node_modules/
+frontend/.vite/
+*.log
+
+# OS & IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+
+# Runtime logs (scripts/run_all.sh)
+logs/
+
+# Generated reports
+reports/*
+!reports/.gitkeep
+
+# Secrets (none are needed, but never commit them)
+.env
+.env.*
+
+# The pre-built dashboard is committed so the tool runs without Node.js
+!frontend/dist/
+
+# VAmPI runtime databases
+third_party/VAmPI/database/*.db
