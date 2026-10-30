@@ -1,65 +1,60 @@
-# Python
+# ============================================================
+# APIGuard .gitignore
+# ============================================================
+
+# ---------- Python ----------
 __pycache__/
 *.py[cod]
 *$py.class
-*.so
-.Python
-env/
-venv/
-ENV/
-.venv/
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
 *.egg-info/
-.installed.cfg
-*.egg
+.eggs/
+build/
+.Python
 
-# Testing & Cache
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# ---------- Testing / tooling caches ----------
 .pytest_cache/
 .coverage
 htmlcov/
+.mypy_cache/
+.ruff_cache/
 
-# Database & Scans
+# ---------- Runtime data (recreated automatically) ----------
+# Scanner database (holds scan history; recreated with demo targets on start)
 backend/apiguard.db
 backend/apiguard.db-wal
 backend/apiguard.db-shm
-
-# Frontend / Node
-frontend/node_modules/
-frontend/.vite/
-*.log
-
-# OS & IDE
-.DS_Store
-Thumbs.db
-.vscode/
-.idea/
-*.swp
-
-
-# Runtime logs (scripts/run_all.sh)
+# VAmPI benchmark databases (recreated by third_party/run_vampi.py)
+third_party/VAmPI/database/*.db
+# Logs from scripts/run_all.sh
 logs/
-
-# Generated reports
+*.log
+# Generated scan reports (keep the folder itself)
 reports/*
 !reports/.gitkeep
 
-# Secrets (none are needed, but never commit them)
+# ---------- Frontend / Node ----------
+frontend/node_modules/
+frontend/.vite/
+# NOTE: frontend/dist/ is intentionally COMMITTED - the backend serves this
+# pre-built dashboard, so the tool runs without Node.js.
+
+# ---------- Secrets (none are needed - never commit any) ----------
 .env
 .env.*
+*.pem
+*.key
 
-# The pre-built dashboard is committed so the tool runs without Node.js
-!frontend/dist/
-
-# VAmPI runtime databases
-third_party/VAmPI/database/*.db
+# ---------- OS / editor files ----------
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.swp
+*~
